@@ -1,38 +1,42 @@
-version: "3.9"                              #Defines Docker Compose file format.
 services:                                   #Each service = one container.
   nginx:                                    #NGINX Service
     build: ./requirements/nginx             #Dockerfile is custom. No prebuilt images allowed
+    container_name: nginx
+    env_file:
+      - ./.env
+    environment:
+      - DOMAIN_NAME=${DOMAIN_NAME}
     ports:
       - "443:443"                           #Only exposed port. HTTPS only
-    volumes:
-      - wp_data:/var/www/html               #NGINX needs WordPress files
-    networks:
-      - inception                           #Internal communication
-    depends_on:
-      - wordpress                           #Starts after WordPress
-  wordpress:                                #WordPress Service
-    build: ./requirements/wordpress         #Custom PHP-FPM image.
-    volumes:
-      - wp_data:/var/www/html               #WordPress files persistence.
-    secrets:
-      - db_password                         #Secure password access.
-    networks:
-      - inception
-  mariadb:
-    build: ./requirements/mariadb           #Custom database image.
-    volumes:
-      - db_data:/var/lib/mysql              #Database persistence.
-    secrets:
-      - db_password                         #Secure credentials.
-      - db_root_password
-  volumes: 
-    wp_data:
-      driver: local                         #Docker-managed persistent storage.
-    db_data:
-      driver: local                         #Docker-managed persistent storage.
-  networks: 
-    inception:
-      driver: bridge                        #Isolated internal network.
-  secrets:
-    db_pasword:
-      file: ../secrets/db_password.txt      #Passwords stored outside Git.
+    # volumes:
+    #   - wp_data:/var/www/html               #NGINX needs WordPress files
+    # networks:
+    #   - inception                           #Internal communication
+    # depends_on:
+    #   - wordpress                           #Starts after WordPress
+  # wordpress:                                #WordPress Service
+  #   build: ./requirements/wordpress         #Custom PHP-FPM image.
+  #   volumes:
+  #     - wp_data:/var/www/html               #WordPress files persistence.
+  #   secrets:
+  #     - db_password                         #Secure password access.
+  #   networks:
+  #     - inception
+  # mariadb:
+  #   build: ./requirements/mariadb           #Custom database image.
+  #   volumes:
+  #     - db_data:/var/lib/mysql              #Database persistence.
+  #   secrets:
+  #     - db_password                         #Secure credentials.
+  #     - db_root_password
+  # volumes: 
+  #   wp_data:
+  #     driver: local                         #Docker-managed persistent storage.
+    # db_data:
+    #   driver: local                         #Docker-managed persistent storage.
+  # networks: 
+  #   inception:
+  #     driver: bridge                        #Isolated internal network.
+  # secrets:
+  #   db_pasword:
+  #     file: ../secrets/db_password.txt      #Passwords stored outside Git.

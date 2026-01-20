@@ -1,5 +1,7 @@
 FROM debian:bullseye 
 
-RUN apt-get install nginx openssl
+RUN apt-get update && \
+    apt-get install -y nginx openssl && \
+    rm -rf /var/lib/apt/lists/*
 
-CMD ["nginx", "-g", "deamon off;"]
+CMD ["nginx", "-g", "daemon off;"]
