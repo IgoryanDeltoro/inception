@@ -10,8 +10,8 @@ services:                                   #Each service = one container.
       - "443:443"                           #Only exposed port. HTTPS only
     # volumes:
     #   - wp_data:/var/www/html               #NGINX needs WordPress files
-    # networks:
-    #   - inception                           #Internal communication
+    networks:
+      - inception                           #Internal communication
     # depends_on:
     #   - wordpress                           #Starts after WordPress
   # wordpress:                                #WordPress Service
@@ -34,9 +34,9 @@ services:                                   #Each service = one container.
   #     driver: local                         #Docker-managed persistent storage.
     # db_data:
     #   driver: local                         #Docker-managed persistent storage.
-  # networks: 
-  #   inception:
-  #     driver: bridge                        #Isolated internal network.
+networks: 
+  inception:
+    driver: bridge                          #Isolated internal network.
   # secrets:
   #   db_pasword:
   #     file: ../secrets/db_password.txt      #Passwords stored outside Git.
