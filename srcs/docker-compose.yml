@@ -1,42 +1,73 @@
 services:                                   #Each service = one container.
   nginx:                                    #NGINX Service
     build: ./requirements/nginx             #Dockerfile is custom. No prebuilt images allowed
-    container_name: nginx
-    env_file:
-      - ./.env
+    container_name: ${NGINX_NAME}
     environment:
-      - DOMAIN_NAME=${DOMAIN_NAME}
+      DOMAIN_NAME: ${DOMAIN_NAME}
     ports:
       - "443:443"                           #Only exposed port. HTTPS only
-    # volumes:
-    #   - wp_data:/var/www/html               #NGINX needs WordPress files
+    volumes:
+      - wp_data:/var/www/html               #NGINX needs WordPress files
     networks:
       - inception                           #Internal communication
-    # depends_on:
-    #   - wordpress                           #Starts after WordPress
-  # wordpress:                                #WordPress Service
-  #   build: ./requirements/wordpress         #Custom PHP-FPM image.
-  #   volumes:
-  #     - wp_data:/var/www/html               #WordPress files persistence.
-  #   secrets:
-  #     - db_password                         #Secure password access.
-  #   networks:
-  #     - inception
-  # mariadb:
-  #   build: ./requirements/mariadb           #Custom database image.
-  #   volumes:
-  #     - db_data:/var/lib/mysql              #Database persistence.
-  #   secrets:
-  #     - db_password                         #Secure credentials.
-  #     - db_root_password
-  # volumes: 
-  #   wp_data:
-  #     driver: local                         #Docker-managed persistent storage.
-    # db_data:
-    #   driver: local                         #Docker-managed persistent storage.
+    depends_on:
+      - wordpress                           #Starts after WordPress
+    restart: unless-stopped
+
+  wordpress:                                #WordPress Service
+    build: ./requirements/wordpress         #Custom PHP-FPM image.
+    container_name: ${WORDPRESS_DB_NAME}
+    secrets:
+      - db_password                         #Secure password access.
+    environment:
+      DOMAIN_NAME: ${DOMAIN_NAME}
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: /run/secrets/db_password
+    volumes:
+      - wp_data:/var/www/html               #WordPress files persistence.
+    networks:
+      - inception
+    depends_on:
+      - mariadb 
+    restart: unless-stopped
+
+  mariadb:
+    build: ./requirements/mariadb           #Custom database image.
+    container_name: mariadb
+    secrets:
+      - db_password                         #Secure credentials.
+      - db_root_password
+    environment:
+      MYSQL_ROOT_PASSWORD: /run/secrets/db_root_password
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: /run/secrets/db_password
+    volumes:
+      - db_data:/var/lib/mysql              #Database persistence.
+    networks:
+      - inception
+    restart: unless-stopped
+
+volumes: 
+  wp_data:
+    driver: local                         #Docker-managed persistent storage.
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/wordpress
+  db_data:
+    driver: local                         #Docker-managed persistent storage.
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/mariadb
 networks: 
   inception:
     driver: bridge                          #Isolated internal network.
-  # secrets:
-  #   db_pasword:
-  #     file: ../secrets/db_password.txt      #Passwords stored outside Git.
+secrets:
+  db_password:
+    file: ../secrets/db_password.txt      #Passwords stored outside Git.
+  db_root_password:
+    file: ../secrets/db_root_password.txt      #Passwords stored outside Git.

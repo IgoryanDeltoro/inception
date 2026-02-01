@@ -1,5 +1,18 @@
-FROM debian:bullseye 
+FROM debian:bookworm
 
-RUN apt-get install mariadb-server
+RUN apt-get update &&   \
+    apt-get install -y  \
+    mariadb-server      \
+    mariadb-client      \
+    galera-4 &&         \
+    rm -fr /var/lib/apt/lists/*
 
-CMD ["mariadb"]
+COPY /conf/50-server.cnf /etc/mysql/mariadb.conf.d
+
+COPY /tools/init-db.sh /usr/local/bin/init-db.sh
+
+RUN chmod +x /usr/local/bin/init-db.sh
+
+EXPOSE 3306
+
+ENTRYPOINT [ "init-db.sh" ]

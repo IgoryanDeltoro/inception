@@ -1,5 +1,26 @@
-FROM debian:bullseye 
+FROM debian:bookworm 
 
-RUN php-fpm php-mysql curl
+RUN apt-get update &&           \
+    apt-get install -y          \
+    php8.2                      \
+    php8.2-fpm                  \
+    php8.2-mysql                \
+    curl                        \
+    wget                        \
+    mariadb-client &&           \
+    rm -rf /var/lib/apt/lists/* 
 
-CMD ["wordpress"]
+RUN mkdir -p /run/php /var/run/php
+
+COPY /tools/wp-install.sh /wp-install.sh
+
+RUN chmod +x wp-install.sh
+
+RUN sed -i 's@listen = \/run\/php\/php8.2-fpm.sock@listen = 9000@g' \
+    /etc/php/8.2/fpm/pool.d/www.conf
+
+EXPOSE 9000
+
+WORKDIR /var/www/html
+
+CMD ["/wp-install.sh"]
