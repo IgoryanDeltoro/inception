@@ -2,6 +2,6 @@
 bind-address = 0.0.0.0
 port = 3306
 datadir = /var/lib/mysql
-socket = /var/run/mysqld/mysqld.socket
+socket = /var/run/mysqld/mysqld.sock
 log-error = /var/log/mysql/error.log
 pid-file = /var/run/mysqld/mysqld.pid

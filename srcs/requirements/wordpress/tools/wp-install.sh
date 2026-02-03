@@ -11,11 +11,9 @@ Purple='\033[0;35m'       # Purple
 Cyan='\033[0;36m'         # Cyan
 White='\033[0;37m'        # White
 
-set -e          # Script stops immediately if any command fails
+set -e         
 
 echo -e "${Yellow}Starting WordPress setup...${Reset}"
-
-# DB_PASSWORD=$(cat "$WORDPRESS_DB_PASSWORD")
 
 if [ ! -d /run/php/ ] && [ ! -d /var/run/php/ ]; then
     echo -e "${Red}Creating PHP directories...${Reset}"  
@@ -33,14 +31,10 @@ if [ ! -f /var/www/html/wp-config.php ] && [ ! -f /var/www/html/index.php ]; the
     echo -e  "${Green}Download finished.${Reset}"
 fi
 
+export WORDPRESS_DB_PASSWORD=$(cat "$WORDPRESS_DB_PASSWORD")
 
-# wp config create                    \
-#     --dbname="$WORDPRESS_DB_NAME"   \
-#     --dbuser="$WORDPRESS_DB_USER"   \
-#     --dbpass="$DB_PASSWORD"         \
-#     --dbhost="$WORDPRESS_DB_HOST"   \
-#     --path=/var/www/html            \
-#     --allow-root
+chown -R www-data:www-data /var/www/html
+chmod -R 755 /var/www/html
 
 echo -e  "${Green}Startin php-fpm process...${Reset}"
 exec php-fpm8.2 -F

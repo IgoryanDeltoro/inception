@@ -5,7 +5,11 @@ RUN apt-get update &&           \
     php8.2                      \
     php8.2-fpm                  \
     php8.2-mysql                \
-    curl                        \
+    php8.2-xml                  \
+    php8.2-zip                  \
+    php8.2-curl                 \
+    php8.2-mbstring             \
+    php8.2-gd                   \
     wget                        \
     mariadb-client &&           \
     rm -rf /var/lib/apt/lists/* 

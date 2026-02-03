@@ -24,7 +24,9 @@ ps:
 	docker ps	
 
 
-clean: down 
+clean: down
+	sudo rm -fr /home/$(USER)/data/wordpress
+	sudo rm -fr /home/$(USER)/data/mariadb
 	docker compose -f ./srcs/docker-compose.yml down -v
 	docker system prune -f
 
