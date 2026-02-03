@@ -13,28 +13,42 @@ White='\033[0;37m'        # White
 
 set -e         
 
-echo -e "${Yellow}Starting WordPress setup...${Reset}"
+echo -e ${Yellow}Starting WordPress setup...${Reset}
 
 if [ ! -d /run/php/ ] && [ ! -d /var/run/php/ ]; then
-    echo -e "${Red}Creating PHP directories...${Reset}"  
+    echo  -e ${Red}Creating PHP directories...${Reset} 
     mkdir -p /run/php
     mkdir -p /var/run/php
 fi
 
 if [ ! -f /var/www/html/wp-config.php ] && [ ! -f /var/www/html/index.php ]; then
-    echo -e  "${Red}The WordPress not existed.${Reset}"
-    echo -e  "${Blue}Downloading...${Reset}"
-    wget https://wordpress.org/latest.tar.gz -O /tmp/wp.tar.gz
-    tar -xzf /tmp/wp.tar.gz -C /tmp/
-    mv /tmp/wordpress/* /var/www/html/
-    rm -rf /tmp/wp.tar.gz /tmp/wordpress
-    echo -e  "${Green}Download finished.${Reset}"
+    echo -e     ${Red}The WordPress not existed.${Reset}
+    echo -e     ${Blue}Downloading...${Reset}
+    wget        https://wordpress.org/latest.tar.gz -O /tmp/wp.tar.gz
+    tar  -xzf   /tmp/wp.tar.gz -C /tmp/
+    mv          /tmp/wordpress/* /var/www/html/
+    rm   -rf    /tmp/wp.tar.gz /tmp/wordpress
+    echo -e     ${Green}Download finished.${Reset}
 fi
 
-export WORDPRESS_DB_PASSWORD=$(cat "$WORDPRESS_DB_PASSWORD")
+export i=1 max=30
+
+until mysql --host      ${WORDPRESS_DB_HOST}            \
+            --port      ${WORDPRESS_DB_PORT}            \
+            --user      ${WORDPRESS_DB_USER}            \
+            --password  $(cat $WORDPRESS_DB_PASSWORD)   \
+            -e          "SELECT 1" >/dev/null 2>&1;     do
+    sleep 1
+    export i=$(($i + 1))
+    echo    -e ${Purple}Etempt to reestablish connection...${Reset}
+    if [ $i -gt $max ]; then
+        echo -e ${Red}Unable to establish connection...${Reset}
+        exit 1
+    fi
+done
 
 chown -R www-data:www-data /var/www/html
 chmod -R 755 /var/www/html
 
-echo -e  "${Green}Startin php-fpm process...${Reset}"
+echo -e  ${Green}Startin php-fpm process...${Reset}
 exec php-fpm8.2 -F

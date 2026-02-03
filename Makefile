@@ -21,7 +21,7 @@ exec:
 	docker exec -it ${ID} /bin/bash
 
 ps:
-	docker ps	
+	docker ps -a
 
 
 clean: down

@@ -35,8 +35,10 @@ until mysqladmin --socket=/run/mysqld/mysqld.sock ping > /dev/null 2>&1; do
 done
 echo -e ${Green}MariaDB is ready.${Reset}
 
-export MYSQL_ROOT_PASSWORD=$(cat "$MYSQL_ROOT_PASSWORD")
-export MYSQL_PASSWORD=$(cat "$MYSQL_PASSWORD")
+MYSQL_ROOT_PASSWORD=$(cat "$MYSQL_ROOT_PASSWORD")
+MYSQL_PASSWORD=$(cat "$MYSQL_PASSWORD")
+export MYSQL_ROOT_PASSWORD
+export MYSQL_PASSWORD
 
 echo -e ${Cyan}MYSQL_ROOT_PASSWORD: ${Yellow} ${MYSQL_ROOT_PASSWORD} ${Reset}
 echo -e ${Cyan}MYSQL_PASSWORD: ${Yellow} ${MYSQL_PASSWORD} ${Reset}
