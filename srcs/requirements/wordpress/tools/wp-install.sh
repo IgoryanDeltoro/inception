@@ -11,20 +11,22 @@ Purple='\033[0;35m'
 
 echo -e ${Yellow}Starting WordPress setup...${Reset}
 
-if [ ! -d /run/php/ ] && [ ! -d /var/run/php/ ]; then
-    echo  -e ${Red}Creating PHP directories...${Reset} 
-    mkdir -p /run/php
-    mkdir -p /var/run/php
-fi
+chown -R www-data:www-data /var/www/html 
+chmod -R 777 /var/www
 
-if [ ! -f /var/www/html/wp-config.php ] && [ ! -f /var/www/html/index.php ]; then
-    echo -e     ${Red}The WordPress not existed.${Reset}
-    echo -e     ${Blue}Downloading...${Reset}
-    wget        https://wordpress.org/latest.tar.gz >/dev/null 2>&1 -O /tmp/wp.tar.gz
-    tar  -xzf   /tmp/wp.tar.gz -C /tmp/
-    mv          /tmp/wordpress/* /var/www/html/
-    rm   -rf    /tmp/wp.tar.gz /tmp/wordpress
-    echo -e     ${Green}Download finished.${Reset}
+ls -la /usr/local/bin/
+
+if [ ! -f /var/www/html/wp-config.php ]; then
+    echo -e ${Red}The WordPress not existed.${Reset}
+    echo -e ${Blue}Downloading WP-CLI...${Reset}
+    wp --info && sudo -u www-data wp core download
+    sudo -u www-data wp config create                   \
+        --dbname=$WORDPRESS_DB_NAME                     \
+        --dbuser=$WORDPRESS_DB_USER                     \
+        --dbpass=$(cat $WORDPRESS_DB_PASSWORD)          \
+        --dbhost=$WORDPRESS_DB_HOST                     \
+        --force
+    echo -e ${Green}WP-CLI download finished.${Reset}
 fi
 
 export i=1 max=30
@@ -35,7 +37,8 @@ until mysql -h ${WORDPRESS_DB_HOST}          \
             -p ${WORDPRESS_DB_PORT}          \
             -u ${WORDPRESS_DB_USER}          \
             -p$(cat $WORDPRESS_DB_PASSWORD)  \
-            -e "SELECT 1" >/dev/null 2>&1;  do
+            -e "SELECT 1" >/dev/null 2>&1;  
+do
     sleep 1
     export i=$(($i + 1))
     echo    -e ${Purple}Etempt to reestablish connection...${Reset}
@@ -45,10 +48,22 @@ until mysql -h ${WORDPRESS_DB_HOST}          \
     fi
 done
 
+if ! sudo -u www-data wp core is-installed; then
+    echo "🚀 Installing WordPress..."
+
+    sudo -u www-data wp core install                    \
+        --url=https://${DOMAIN_NAME}                    \
+        --title="Inception"                             \
+        --admin_user="Achilles"                         \
+        --admin_password=$(cat $WORDPRESS_DB_PASSWORD)  \
+        --admin_email=bondatchuk1989@gmail.com
+else
+    echo "✅ WordPress already installed"
+fi
+
 echo -e ${Green}Connection to the MariaDB seccessfuly established.${Reset}
 
-chown -R www-data:www-data /var/www/html
-chmod -R 755 /var/www/html
+chmod -R 755 /var/www
 
 echo -e  ${Green}Startin php-fpm process...${Reset}
 exec php-fpm8.2 -F

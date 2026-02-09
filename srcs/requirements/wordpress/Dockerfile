@@ -11,13 +11,18 @@ RUN apt-get update &&                                       \
     php8.2-mbstring                                         \
     php8.2-gd                                               \
     wget                                                    \
+    curl                                                    \
+    sudo                                                    \
     mariadb-client &&                                       \
     ln -s /usr/sbin/php-fpm8.2 /usr/local/bin/php-fpm &&    \
     rm -rf /var/lib/apt/lists/* 
 
-RUN mkdir -p /run/php /var/run/php
+# RUN mkdir -p /run/php /var/run/php
 
 COPY /tools/wp-install.sh /wp-install.sh
+
+RUN curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+    && chmod +x /usr/local/bin/wp
 
 RUN chmod +x wp-install.sh
 

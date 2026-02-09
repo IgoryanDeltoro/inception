@@ -8,7 +8,8 @@ RUN apt-get update &&   \
     rm -fr /var/lib/apt/lists/*
    
 COPY /conf/50-server.cnf /etc/mysql/mariadb.conf.d
-# RUN rm -rf /etc/mysql/my.cnf
+
+RUN rm -rf /etc/mysql/my.cnf
 
 COPY /tools/init-db.sh /usr/local/bin/init-db.sh
 

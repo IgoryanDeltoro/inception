@@ -28,8 +28,8 @@ clean: down
 	sudo rm -fr /home/$(USER)/data/wordpress
 	sudo rm -fr /home/$(USER)/data/mariadb
 	docker compose -f ./srcs/docker-compose.yml down -v
-	docker system prune -f
+	docker system prune -af
 
-re: clean setup
+rebuild: clean setup
 	docker compose -f ./srcs/docker-compose.yml build --no-cache
 	docker compose -f ./srcs/docker-compose.yml up -d
