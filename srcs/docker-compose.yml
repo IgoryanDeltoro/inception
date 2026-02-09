@@ -24,6 +24,8 @@ services:                                   #Each service = one container.
       WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
       WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_ADMIN: ${WORDPRESS_DB_ADMIN}
+      WORDPRESS_DB_TITLE: ${WORDPRESS_DB_TITLE}
       WORDPRESS_DB_PASSWORD: /run/secrets/db_password
     volumes:
       - wp_data:/var/www/html               #WordPress files persistence.

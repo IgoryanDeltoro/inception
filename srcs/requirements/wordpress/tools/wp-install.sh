@@ -48,21 +48,29 @@ do
     fi
 done
 
-if ! sudo -u www-data wp core is-installed; then
-    echo "🚀 Installing WordPress..."
-
+if  sudo -u www-data wp core is-installed; then
+    echo "WordPress already installed."
+else
+    echo "WordPress creats user-admin."
     sudo -u www-data wp core install                    \
-        --url=https://${DOMAIN_NAME}                    \
+        --url=${DOMAIN_NAME}                            \
         --title="Inception"                             \
         --admin_user="Achilles"                         \
         --admin_password=$(cat $WORDPRESS_DB_PASSWORD)  \
-        --admin_email=bondatchuk1989@gmail.com
-else
-    echo "✅ WordPress already installed"
+        --admin_email=bondatchuk1989@gmail.com          \
+        --skip-email                                    
+fi
+
+if ! sudo -u www-data wp user get ${WORDPRESS_DB_USER} > /dev/null 2>&1; 
+then
+    sudo -u www-data wp user create             \
+    ${WORDPRESS_DB_USER}                        \
+    ${WORDPRESS_DB_USER}@gamil.com              \
+    --role=editor                               \
+    --user_pass=$(cat $WORDPRESS_DB_PASSWORD)   
 fi
 
 echo -e ${Green}Connection to the MariaDB seccessfuly established.${Reset}
-
 chmod -R 755 /var/www
 
 echo -e  ${Green}Startin php-fpm process...${Reset}

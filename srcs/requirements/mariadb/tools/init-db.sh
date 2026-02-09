@@ -41,7 +41,7 @@ GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
 
-mysql -u root -p${MYSQL_ROOT_PASSWORD}
+# mysql -u root -p${MYSQL_ROOT_PASSWORD}
 
 # Shut down temporary server...
 echo -e ${Yellow}Shuting down temporary MariaDB...${Reset} 
