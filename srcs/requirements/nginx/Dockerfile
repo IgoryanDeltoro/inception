@@ -13,6 +13,8 @@ RUN mkdir -p  /etc/nginx/ssl && \
 
 COPY ./conf/nginx.conf /etc/nginx/conf.d/nginx.conf
 
+COPY ./tools/loading.html  /var/www/html/
+
 EXPOSE 443
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD [ "nginx", "-g", "daemon off;"]

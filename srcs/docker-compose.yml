@@ -11,7 +11,8 @@ services:                                   #Each service = one container.
     networks:
       - inception                           #Internal communication
     depends_on:
-      - wordpress                           #Starts after WordPress
+      wordpress:
+        condition: service_healthy                           #Starts after WordPress
     restart: unless-stopped
 
   wordpress:                                #WordPress Service
@@ -32,7 +33,12 @@ services:                                   #Each service = one container.
     networks:
       - inception
     depends_on:
-      - mariadb 
+      - mariadb
+    healthcheck:
+      test: ["CMD", "ps", "-p", "1", "-o", "cmd="]
+      interval: 5s
+      timeout: 5s
+      retries: 3
     restart: unless-stopped
 
   mariadb:

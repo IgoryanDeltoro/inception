@@ -73,5 +73,7 @@ fi
 echo -e ${Green}Connection to the MariaDB seccessfuly established.${Reset}
 chmod -R 755 /var/www
 
+touch .wp_ready
 echo -e  ${Green}Startin php-fpm process...${Reset}
-exec php-fpm8.2 -F
+exec php-fpm8.2 -F #&& touch .wp_ready; chown -R www-data:www-data /var/www/html/.wp_ready
+

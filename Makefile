@@ -12,10 +12,10 @@ down:
 	docker compose -f ./srcs/docker-compose.yml down
 
 stop: 
-	@docker compose -f ./srcs/docker-compose.yml stop
+	docker compose -f ./srcs/docker-compose.yml stop
 
 start: 
-	@docker compose -f ./srcs/docker-compose.yml start
+	docker compose -f ./srcs/docker-compose.yml start
 
 restart: down up
 
@@ -34,7 +34,7 @@ ps:
 	docker ps -a
 
 
-clean: down 
+clean:
 	sudo rm -fr /home/$(USER)/data/wordpress
 	sudo rm -fr /home/$(USER)/data/mariadb
 	docker compose -f ./srcs/docker-compose.yml down -v

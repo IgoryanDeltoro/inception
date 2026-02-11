@@ -14,7 +14,7 @@ RUN apt-get update &&                                       \
     curl                                                    \
     sudo                                                    \
     mariadb-client &&                                       \
-    ln -s /usr/sbin/php-fpm8.2 /usr/local/bin/php-fpm &&    \
+    # ln -s /usr/sbin/php-fpm8.2 /usr/local/bin/php-fpm &&    \
     rm -rf /var/lib/apt/lists/* 
 
 # RUN mkdir -p /run/php /var/run/php
