@@ -30,7 +30,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 fi
 
 # Create a user as an administrator in database if they do not exist.
-if  sudo -u www-data wp core is-installed; then
+if  sudo -u www-data wp --url=${DOMAIN_NAME} core is-installed; then
     echo -e ${Green}"WordPress already installed."${Reset}
 else
     echo -e ${Green}Creating user-admin...${Reset}

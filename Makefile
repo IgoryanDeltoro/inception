@@ -23,7 +23,6 @@ rebuild: clean setup
 	docker compose -f ./srcs/docker-compose.yml build --no-cache
 	docker compose -f ./srcs/docker-compose.yml up -d
 
-# instead ID gonna be name of container
 inspect:
 	docker inspect ${ID}
 
@@ -41,3 +40,5 @@ clean:
 	docker system prune -af
 
 .PHONY: all setup up down stop start restart clean rebuild inspect exec ps clean
+
+# instead ID gonna be name of container

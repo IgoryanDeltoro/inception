@@ -51,6 +51,7 @@ else
     echo -e ${Yellow}MariaDB database has been already initialised.${Reset}
 fi
 
-# Start MariaDB (PID 1)  (with networking)
 echo -e ${Green}Starting MariaDB...${Reset}
+
+# Start MariaDB (PID 1)  (with networking)
 exec mysqld_safe --user=mysql
