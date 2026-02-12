@@ -1,25 +1,25 @@
-services:                                   #Each service = one container.
-  nginx:                                    #NGINX Service
-    build: ./requirements/nginx             #Dockerfile is custom. No prebuilt images allowed
+services:                                   
+  nginx:                                                      #NGINX Service
+    build: ./requirements/nginx                               #Dockerfile is custom. No prebuilt images allowed
     container_name: ${NGINX_NAME}
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME}
     ports:
-      - "443:443"                           #Only exposed port. HTTPS only
+      - "443:443"                                             #Only exposed port. HTTPS only
     volumes:
-      - wp_data:/var/www/html               #NGINX needs WordPress files
+      - wp_data:/var/www/html                                 #NGINX needs WordPress files
     networks:
-      - inception                           #Internal communication
+      - inception                                             #Internal communication
     depends_on:
       wordpress:
-        condition: service_healthy                           #Starts after WordPress
+        condition: service_healthy                            #Starts after WordPress
     restart: unless-stopped
 
-  wordpress:                                #WordPress Service
-    build: ./requirements/wordpress         #Custom PHP-FPM image.
+  wordpress:                                                  #WordPress Service
+    build: ./requirements/wordpress                           #Custom PHP-FPM image.
     container_name: ${WORDPRESS_DB_NAME}
     secrets:
-      - db_password                         #Secure password access.
+      - db_password                                           #Secure password access.
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME}
       WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
@@ -28,24 +28,25 @@ services:                                   #Each service = one container.
       WORDPRESS_DB_ADMIN: ${WORDPRESS_DB_ADMIN}
       WORDPRESS_DB_TITLE: ${WORDPRESS_DB_TITLE}
       WORDPRESS_DB_PASSWORD: /run/secrets/db_password
-    volumes:
-      - wp_data:/var/www/html               #WordPress files persistence.
+    volumes:                                                  #WordPress files persistence.
+      - wp_data:/var/www/html                                 
     networks:
       - inception
     depends_on:
-      - mariadb
-    healthcheck:
-      test: ["CMD", "ps", "-p", "1", "-o", "cmd="]
-      interval: 5s
-      timeout: 5s
-      retries: 3
+      mariadb:
+        condition: service_healthy
+    healthcheck:                                             ##
+      test: ["CMD", "ps", "-p", "1", "-o", "cmd="]            # The healthchack verifies
+      interval: 5s                                            # the launch of the main
+      timeout: 5s                                             # process called PID1
+      retries: 5                                             ##
     restart: unless-stopped
 
   mariadb:
-    build: ./requirements/mariadb           #Custom database image.
+    build: ./requirements/mariadb                             #Custom database image.
     container_name: mariadb
-    secrets:
-      - db_password                         #Secure credentials.
+    secrets:                                                  #Secure credentials.
+      - db_password                                          
       - db_root_password
     environment:
       MYSQL_ROOT_PASSWORD: /run/secrets/db_root_password
@@ -53,29 +54,36 @@ services:                                   #Each service = one container.
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: /run/secrets/db_password
     volumes:
-      - db_data:/var/lib/mysql              #Database persistence.
+      - db_data:/var/lib/mysql                                
     networks:
       - inception
+    healthcheck:                                             ##
+      test: ["CMD", "ps", "-p", "1", "-o", "cmd="]            # The healthchack verifies
+      interval: 5s                                            # the launch of the main
+      timeout: 5s                                             # process called PID1
+      retries: 5                                             ##
     restart: unless-stopped
 
-volumes: 
-  wp_data:
-    driver: local                         #Docker-managed persistent storage.
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/${USER}/data/wordpress
-  db_data:
-    driver: local                         #Docker-managed persistent storage.
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/${USER}/data/mariadb
-networks: 
-  inception:
-    driver: bridge                          #Isolated internal network.
-secrets:
-  db_password:
-    file: ../secrets/db_password.txt      #Passwords stored outside Git.
-  db_root_password:
-    file: ../secrets/db_root_password.txt      #Passwords stored outside Git.
+volumes:                                                     ##
+  wp_data:                                                    #
+    driver: local                                             #
+    driver_opts:                                              #
+      type: none                                              #
+      o: bind                                                 # 
+      device: /home/${USER}/data/wordpress                    # Docker-managed persistent storage.
+  db_data:                                                    #
+    driver: local                                             #
+    driver_opts:                                              #
+      type: none                                              #
+      o: bind                                                 #
+      device: /home/${USER}/data/mariadb                     ##
+
+networks:                                                    ## 
+  inception:                                                  # Isolated internal network.
+    driver: bridge                                           ##
+    
+secrets:                                                     ##
+  db_password:                                                #
+    file: ../secrets/db_password.txt                          # Passwords stored outside Git.
+  db_root_password:                                           #
+    file: ../secrets/db_root_password.txt                    ##

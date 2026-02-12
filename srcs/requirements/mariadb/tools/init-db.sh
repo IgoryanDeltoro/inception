@@ -11,28 +11,26 @@ Cyan='\033[0;36m'         # Cyan
 mkdir -p /var/log/mysql && chmod -R 777 /var/log/mysql
 mkdir -p  /var/lib/mysql /var/run/mysqld  /run/mysqld 
 chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
-chmod -R 755 /var/run/mysqld
+chmod -R 755 /var/run/mysqld /var/log/mysql
 
 # Initialize MySQL data directory if it doesn't exist
-if [ ! -d "/var/lib/mysql/mysql" ]; then
+if [ ! -d "/var/lib/mysql/mysql" ] || [ ! -d "/var/lib/mysql/${MYSQL_DATABASE}" ]; then
     echo -e ${Green}Initializing MySQL...${Reset}
     mysql_install_db --user=mysql --datadir=/var/lib/mysql > /dev/null
-fi
 
-# Start the server to be ready
-echo -e ${Green}Starting temporary MariaDB server for setup...${Reset}
-mysqld --skip-networking --socket=/run/mysqld/mysqld.sock --user=mysql & pid="$!"
+    # Start the server to be ready
+    echo -e ${Green}Starting temporary MariaDB server for setup...${Reset}
+    mysqld --skip-networking --socket=/run/mysqld/mysqld.sock --user=mysql & pid="$!"
 
-echo -e ${Green}Waiting for MariaDB to be ready...${Reset}
-until mysqladmin --socket=/run/mysqld/mysqld.sock ping > /dev/null 2>&1; do
-    echo -e ${Yellow}Sleeping 1 sec...${Reset}
-    sleep 1
-done
-echo -e ${Green}MariaDB is ready.${Reset}
+    echo -e ${Green}Waiting for MariaDB to be ready...${Reset}
+    until mysqladmin --socket=/run/mysqld/mysqld.sock ping > /dev/null 2>&1; do
+        echo -e ${Yellow}Sleeping 1 sec...${Reset}
+        sleep 1
+    done
 
-# Run setup SQL: create database and users
-echo -e ${Yellow}Running setup SQL...${Reset}
-mysql -u root << EOF
+    # Run setup SQL: create database and users
+    echo -e ${Yellow}Running setup SQL...${Reset}
+    mysql -u root << EOF
 FLUSH PRIVILEGES;
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$(cat "$MYSQL_ROOT_PASSWORD")');
 CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -41,15 +39,18 @@ GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
 
-# mysql -u root -p${MYSQL_ROOT_PASSWORD}
+    # Shut down temporary server...
+    echo -e ${Yellow}Shuting down temporary MariaDB...${Reset}  
+    mysqladmin -u root -p${MYSQL_ROOT_PASSWORD} shutdown 2>/dev/null || kill $pid
 
-# Shut down temporary server...
-echo -e ${Yellow}Shuting down temporary MariaDB...${Reset} 
-mysqladmin -u root -p${MYSQL_ROOT_PASSWORD} shutdown 2>/dev/null || kill $pid
-
-# Wait for shutdown
-wait $pid 2>/dev/null || true
+    # Wait for shutdown
+    wait $pid 2>/dev/null || true
+    
+    echo -e ${Green}MariaDB database initialization complete.${Reset}
+else
+    echo -e ${Yellow}MariaDB database has been already initialised.${Reset}
+fi
 
 # Start MariaDB (PID 1)  (with networking)
-echo -e ${Green}Initialization complete. Starting MariaDB...${Reset}
+echo -e ${Green}Starting MariaDB...${Reset}
 exec mysqld_safe --user=mysql
