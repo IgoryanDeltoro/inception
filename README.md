@@ -1,6 +1,6 @@
 *This project has been created as part of 42 curriculum by ibondarc.*
 
-![Architecture] (assets/architecture.webp)
+![Architecture](assets/architecture.webp)
 
 # INCEPTON - Dockerized Web Infrastracture
 
@@ -111,7 +111,7 @@ from the host system.
 - GNU Make
 - Linux environment (Debian or Ubuntu recommended)
 
-1. [General system requirements](https://docs.docker.com/desktop/setup/install/linux/)
+- [General system requirements](https://docs.docker.com/desktop/setup/install/linux/)
 - [Install Docker Engine on Debian](https://docs.docker.com/engine/install/debian/)
 
 ---
@@ -196,10 +196,10 @@ from the host system.
 
 ##  Resources
 
-> [Docker Documentation](https://docs.docker.com/)
-> [Docker compose Documantation](https://docs.docker.com/compose/)
-> [NGINX Documentation](https://nginx.org/en/docs/)
-> [TLS Wickipedia](https://en.wikipedia.org/wiki/Transport_Layer_Security)
-> [PHP-FPM Documentation](https://www.php.net/manual/en/install.fpm.php)
-> [MariaDB Documentation](https://mariadb.org/documentation/)
-> [WordPress Documentation](https://mariadb.org/documentation/)
+- [Docker Documentation](https://docs.docker.com/)
+- [Docker compose Documantation](https://docs.docker.com/compose/)
+- [NGINX Documentation](https://nginx.org/en/docs/)
+- [TLS Wickipedia](https://en.wikipedia.org/wiki/Transport_Layer_Security)
+- [PHP-FPM Documentation](https://www.php.net/manual/en/install.fpm.php)
+- [MariaDB Documentation](https://mariadb.org/documentation/)
+- [WordPress Documentation](https://mariadb.org/documentation/)
