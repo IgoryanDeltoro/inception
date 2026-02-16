@@ -104,7 +104,7 @@ from the host system.
 
 ##  Instruction 
 
-###  1  Prerequisites
+###  1.  Prerequisites
 
 - Docker 
 - Docker Compose
@@ -116,15 +116,15 @@ from the host system.
 
 ---
 
-###  2  Clone the repositoty
+###  2.  Clone the repositoty
 
     git clone https://github.com/IgoryanDeltoro/inception.git && cd inception 
 
 ---
 
-###  3  Configure environment variable
+###  3.  Configure environment variable
 
-#### 1 Create .env file inside /srcs directory and fill in:
+#### 1. Create .env file inside /srcs directory and fill in:
 
     DOMAIN_NAME=*example.com*
     NGINX_NAME=*nginx*
@@ -137,19 +137,19 @@ from the host system.
     WORDPRESS_DB_TITLE=*Inception*
     WORDPRESS_DB_PORT=*4242*
 
-#### 2 Create two files inside /secrets directory for passwords:
+#### 2. Create two files inside /secrets directory for passwords:
 
     touch  secrets/db_password.txt secrets/db_root_password.txt
 
 ---
 
-###  4  Add domain name to /etc/hosts
+###  4.  Add domain name to /etc/hosts
 
     127.0.0.1 example.com
 
 ---
 
-###  5  Build and start the project
+###  5.  Build and start the project
 
     make 
 
@@ -159,7 +159,7 @@ from the host system.
 
 ---
 
-###  6  Access the Website
+###  6.  Access the Website
 
 #### In the brawser address bar that opens, enter:
 
@@ -169,13 +169,13 @@ from the host system.
 
 ---
 
-###  7  Access WordPress Admin
+###  7.  Access WordPress Admin
 
     https://example.com/wp-admin
 
 ---
 
-###  8  Stop the Project 
+###  8.  Stop the Project 
 
     make down 
 
