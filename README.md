@@ -196,9 +196,9 @@ git clone https://github.com/IgoryanDeltoro/inception.git && cd inception
 
 ##  Resources
 
-    > Docker Documentation - https://docs.docker.com/
-    > Docker compose Documantation - https://docs.docker.com/compose/
-    > NGINX Documentation - https://nginx.org/en/docs/
-    > PHP-FPM Documentation - https://www.php.net/manual/en/install.fpm.php
-    > MariaDB Documentation - https://mariadb.org/documentation/
-    > WordPress Documentation - https://mariadb.org/documentation/
+    Docker Documentation - https://docs.docker.com/
+    Docker compose Documantation  https://docs.docker.com/compose/
+    NGINX Documentation  https://nginx.org/en/docs/
+    PHP-FPM Documentation  https://www.php.net/manual/en/install.fpm.php
+    MariaDB Documentation  https://mariadb.org/documentation/
+    WordPress Documentation  https://mariadb.org/documentation/
