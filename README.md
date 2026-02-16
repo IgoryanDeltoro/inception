@@ -1,6 +1,6 @@
 *This project has been created as part of 42 curriculum by ibondarc.*
 
-![image] (https://medium.com/@ssterdev/inception-guide-42-project-part-i-7e3af15eb671)
+![Architecture] (assets/architecture.webp)
 
 # INCEPTON - Dockerized Web Infrastracture
 
@@ -106,19 +106,19 @@ from the host system.
 
 ###  1  Prerequisites
 
-    - Docker 
-    - Docker Compose
-    - GNU Make
-    - Linux environment (Debian or Ubuntu recommended)
+- Docker 
+- Docker Compose
+- GNU Make
+- Linux environment (Debian or Ubuntu recommended)
 
-    [General system requirements] (https://docs.docker.com/desktop/setup/install/linux/).
-    [Install Docker Engine on Debian] (https://docs.docker.com/engine/install/debian/).
+[General system requirements](https://docs.docker.com/desktop/setup/install/linux/)
+[Install Docker Engine on Debian](https://docs.docker.com/engine/install/debian/)
 
 ---
 
 ###  2  Clone the repositoty
 
-git clone https://github.com/IgoryanDeltoro/inception.git && cd inception 
+    git clone https://github.com/IgoryanDeltoro/inception.git && cd inception 
 
 ---
 
@@ -196,9 +196,10 @@ git clone https://github.com/IgoryanDeltoro/inception.git && cd inception
 
 ##  Resources
 
-    Docker Documentation - https://docs.docker.com/
-    Docker compose Documantation  https://docs.docker.com/compose/
-    NGINX Documentation  https://nginx.org/en/docs/
-    PHP-FPM Documentation  https://www.php.net/manual/en/install.fpm.php
-    MariaDB Documentation  https://mariadb.org/documentation/
-    WordPress Documentation  https://mariadb.org/documentation/
+[Docker Documentation](https://docs.docker.com/)
+[Docker compose Documantation](https://docs.docker.com/compose/)
+[NGINX Documentation](https://nginx.org/en/docs/)
+[TLS Wickipedia](https://en.wikipedia.org/wiki/Transport_Layer_Security)
+[PHP-FPM Documentation](https://www.php.net/manual/en/install.fpm.php)
+[MariaDB Documentation](https://mariadb.org/documentation/)
+[WordPress Documentation](https://mariadb.org/documentation/)
