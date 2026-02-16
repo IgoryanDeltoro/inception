@@ -111,8 +111,8 @@ from the host system.
 - GNU Make
 - Linux environment (Debian or Ubuntu recommended)
 
-[General system requirements](https://docs.docker.com/desktop/setup/install/linux/)
-[Install Docker Engine on Debian](https://docs.docker.com/engine/install/debian/)
+1. [General system requirements](https://docs.docker.com/desktop/setup/install/linux/)
+- [Install Docker Engine on Debian](https://docs.docker.com/engine/install/debian/)
 
 ---
 
@@ -196,10 +196,10 @@ from the host system.
 
 ##  Resources
 
-[Docker Documentation](https://docs.docker.com/)
-[Docker compose Documantation](https://docs.docker.com/compose/)
-[NGINX Documentation](https://nginx.org/en/docs/)
-[TLS Wickipedia](https://en.wikipedia.org/wiki/Transport_Layer_Security)
-[PHP-FPM Documentation](https://www.php.net/manual/en/install.fpm.php)
-[MariaDB Documentation](https://mariadb.org/documentation/)
-[WordPress Documentation](https://mariadb.org/documentation/)
+> [Docker Documentation](https://docs.docker.com/)
+> [Docker compose Documantation](https://docs.docker.com/compose/)
+> [NGINX Documentation](https://nginx.org/en/docs/)
+> [TLS Wickipedia](https://en.wikipedia.org/wiki/Transport_Layer_Security)
+> [PHP-FPM Documentation](https://www.php.net/manual/en/install.fpm.php)
+> [MariaDB Documentation](https://mariadb.org/documentation/)
+> [WordPress Documentation](https://mariadb.org/documentation/)
