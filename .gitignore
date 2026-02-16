@@ -1,5 +1,5 @@
-/srcs/requirements/.env
-/secrets/*.txt
+srcs/.env
+secrets/
 *.pem
 *.key
 *.crt
