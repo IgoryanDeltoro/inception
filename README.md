@@ -49,14 +49,13 @@ dependencies. This guarantees:
 ##  Technical Design Choices
 
 ###     Virtual Machines vs Docker
- ___________________________________________________
+
 | Virtual Machines        | Docker                  |
 |-------------------------|-------------------------|
 | Full OS per VM          | Sharres host kernel     |
 | Heavy resource usage    | Lightweight containers  | 
 | Slover startup          | Fast startup            |
 | Hardware virtualization | OS-level virtualization |
-|_________________________|_________________________|
 
 Docker is preferred becouse it's lightweight and faster than full OS such as Linux, in addition
 better suited for microservice-based architectures.
@@ -65,13 +64,11 @@ better suited for microservice-based architectures.
 
 ###     Secrets vs Environment Variable
 
- ___________________________________________________________
 | Secrets                     | Environment Variables       |
 |-----------------------------|-----------------------------|
 | Securely stored             | Visible in container config |
 | Not exposed in image layers | Can leak in logs            |
 | Better for prodaction       | Acceptable for development  |
-|_____________________________|_____________________________|
 
 In this project, environment variables are used for simplicity, but secrets are recommendet for production
 environments.
@@ -80,14 +77,12 @@ environments.
 
 ###     Docker Network vs Host Network
 
- ___________________________________________________________
 | Dcker Network               | Host Network                |
 |-----------------------------|-----------------------------|
 | Container isolated          | Shares host networking      |
 | Internal DNS resolution     | No isolation                |
 | Better security             | Less secure                 |
 | Controlled communication    | Direct host access          |
-|_____________________________|_____________________________|
 
 A didicated Docker bridge network is used to ensure service isolation and internal DNS resolution.
 
@@ -95,14 +90,12 @@ A didicated Docker bridge network is used to ensure service isolation and intern
 
 ###     Docker Volumes vs Bind Mounts
 
- ___________________________________________________________
 | Dcker Volumes               | Bind Mounts                 |
 |-----------------------------|-----------------------------|
 | Managed by Docker           | Linked to host filesystem   |
 | Portable                    | Host-dependent              |
 | Safer in production         | Good for development        |
 | Abstract storage location   | Direct host access          |
-|_____________________________|_____________________________|
 
 Docker volumes are used to persist database and WordPress data securely and independently 
 from the host system.
@@ -118,22 +111,20 @@ from the host system.
     - GNU Make
     - Linux environment (Debian or Ubuntu recommended)
 
-    [General system requirements] (https://docs.docker.com/desktop/setup/install/linux/)
-    [Install Docker Engine on Debian] (https://docs.docker.com/engine/install/debian/)
+    [General system requirements] (https://docs.docker.com/desktop/setup/install/linux/).
+    [Install Docker Engine on Debian] (https://docs.docker.com/engine/install/debian/).
 
 ---
 
 ###  2  Clone the repositoty
 
-    ```bash
-    git clone https://github.com/IgoryanDeltoro/inception.git && cd inception 
-    ```
+git clone https://github.com/IgoryanDeltoro/inception.git && cd inception 
 
 ---
 
 ###  3  Configure environment variable
 
-    Create .env file inside /srcs and fill in:
+#### Create .env file inside /srcs and fill in:
 
     DOMAIN_NAME=*example.com*
     MYSQL_DATABASE=*wordpress*
@@ -155,19 +146,19 @@ from the host system.
 
     make 
 
-    or 
+####  if the project was built:
 
-    make up (if the project was built)
+    make up 
 
 ---
 
 ###  6  Access the Website
 
-    In the brawser address bar that opens, enter:
+#### In the brawser address bar that opens, enter:
 
     https://example.com
 
-    A self-signed TSL certificate is used, so the browser will show a security warning.
+#### A self-signed TSL certificate is used, so the browser will show a security warning.
 
 ---
 
