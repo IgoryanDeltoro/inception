@@ -1,0 +1,6 @@
+/srcs/requirements/.env
+/secrets/*.txt
+*.pem
+*.key
+*.crt
+*.log

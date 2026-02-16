@@ -29,16 +29,19 @@ inspect:
 exec:
 	docker exec -it ${ID} /bin/bash
 
-ps:
+status:
 	docker ps -a
 
+logs:
+	docker compose -f ./srcs/docker-compose.yml logs -f
 
 clean:
-	sudo rm -fr /home/$(USER)/data/wordpress
-	sudo rm -fr /home/$(USER)/data/mariadb
 	docker compose -f ./srcs/docker-compose.yml down -v
 	docker system prune -af
 
+fclean: clean
+	sudo rm -fr /home/$(USER)/data/wordpress
+	sudo rm -fr /home/$(USER)/data/mariadb
+
 .PHONY: all setup up down stop start restart clean rebuild inspect exec ps clean
 
-# instead ID gonna be name of container
