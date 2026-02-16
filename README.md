@@ -124,15 +124,22 @@ from the host system.
 
 ###  3  Configure environment variable
 
-#### Create .env file inside /srcs and fill in:
+#### 1 Create .env file inside /srcs directory and fill in:
 
     DOMAIN_NAME=*example.com*
+    NGINX_NAME=*nginx*
     MYSQL_DATABASE=*wordpress*
     MYSQL_USER=*WordPress user*
-    MYSQL_PASSWORD=*WordPress password*
     WORDPRESS_DB_HOST=*mariadb*
     WORDPRESS_DB_NAME=*wordpress*
     WORDPRESS_DB_USER=*WordPress user*
+    WORDPRESS_DB_ADMIN=*Achilles*
+    WORDPRESS_DB_TITLE=*Inception*
+    WORDPRESS_DB_PORT=*4242*
+
+#### 2 Create two files inside /secrets directory for passwords:
+
+    touch  secrets/db_password.txt secrets/db_root_password.txt
 
 ---
 
