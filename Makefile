@@ -1,27 +1,31 @@
-all: setup up
+COMPOSE = docker compose -f ./srcs/docker-compose.yml
+
+all: up
 
 setup:
 	sudo mkdir -p /home/$(USER)/data/wordpress
 	sudo mkdir -p /home/$(USER)/data/mariadb
 	sudo chown -R $(USER):$(USER) /home/$(USER)/data
 
-up:
-	docker compose -f ./srcs/docker-compose.yml up -d
+up: setup
+	$(COMPOSE) up -d
 
 down:
-	docker compose -f ./srcs/docker-compose.yml down
+	$(COMPOSE) down
 
-stop: 
-	docker compose -f ./srcs/docker-compose.yml stop
+stop:
+	$(COMPOSE) stop
 
-start: 
-	docker compose -f ./srcs/docker-compose.yml start
+start:
+	$(COMPOSE) start
 
 restart: down up
 
+re: fclean all
+
 rebuild: clean setup
-	docker compose -f ./srcs/docker-compose.yml build --no-cache
-	docker compose -f ./srcs/docker-compose.yml up -d
+	$(COMPOSE) build --no-cache
+	$(COMPOSE) up -d
 
 inspect:
 	docker inspect ${ID}
@@ -33,15 +37,14 @@ status:
 	docker ps -a
 
 logs:
-	docker compose -f ./srcs/docker-compose.yml logs -f
+	$(COMPOSE) logs -f
 
-clean:
-	docker compose -f ./srcs/docker-compose.yml down -v
-	docker system prune -af
+clean: down
+	docker system prune -f
 
 fclean: clean
-	sudo rm -fr /home/$(USER)/data/wordpress
-	sudo rm -fr /home/$(USER)/data/mariadb
+	$(COMPOSE) down -v
+	sudo rm -rf /home/$(USER)/data/wordpress
+	sudo rm -rf /home/$(USER)/data/mariadb
 
-.PHONY: all setup up down stop start restart clean rebuild inspect exec ps clean
-
+.PHONY: all setup up down stop start restart rebuild inspect exec status logs clean fclean
