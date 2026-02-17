@@ -139,17 +139,23 @@ from the host system.
 
 #### 2. Create two files inside /secrets directory for passwords:
 
-    touch  secrets/db_password.txt secrets/db_root_password.txt
+    mkdir secrets && touch  secrets/db_password.txt secrets/db_root_password.txt
 
 ---
 
-###  4.  Add domain name to /etc/hosts
+###  4.  Add domain name to /etc/hosts.
 
     127.0.0.1 example.com
 
 ---
 
-###  5.  Build and start the project
+###  5.  Allow HTTPS traffic on port 443 through firewall.
+
+    sudo ufw allow 443
+
+---
+
+###  6.  Build and start the project.
 
     make 
 
@@ -159,7 +165,7 @@ from the host system.
 
 ---
 
-###  6.  Access the Website
+###  7.  Access the Website
 
 #### In the brawser address bar that opens, enter:
 
@@ -169,13 +175,13 @@ from the host system.
 
 ---
 
-###  7.  Access WordPress Admin
+###  8.  Access WordPress Admin
 
     https://example.com/wp-admin
 
 ---
 
-###  8.  Stop the Project 
+###  9.  Stop the Project 
 
     make down 
 

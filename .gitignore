@@ -1,8 +1,5 @@
-# Docker override files (local-only configs)
-docker-compose.override.yml
-
 # Environment variables / secrets
-/srcs/.env
-/srcs/.env.*
-/srcs/*.env
-/secrets/
+srcs/.env
+srcs/.env.*
+srcs/*.env
+secrets/
