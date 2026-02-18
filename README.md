@@ -151,7 +151,7 @@ from the host system.
 
 ###  5.  Allow HTTPS traffic on port 443 through firewall.
 
-    sudo ufw allow 443
+    sudo ufw allow 443/tcp
 
 ---
 
