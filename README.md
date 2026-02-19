@@ -6,18 +6,29 @@
 
 ---
 
+## Quick navigation
+
+- [Description](#Description)
+- [Project Architecture](#Project Architecture)
+- [Technical Design Choices](#Technical Design Choices)
+- [Instruction](#Instruction)
+- [Documentation](#Documentation)
+- [Resources](#Resources)
+
+---
+
 ##  Description
 
 **Inception** is a system administration and DevOps project focused on building a secure,
 production-style web infrasructure using Docker. The goal of this project is to conteinerize
 a complete WordPress stack composed of:
 
-- **NGINX** (revere proxy with TLSv1.2 or TLSv1.3)
-- **PHP-FPM**
-- **MariaDB** 
-- **WordPress**
-- Persistent storage via Docker volumes
-- Secure comunication over HTTPS 
+- [NGINX](#Resources) - Revere proxy with TLS termination
+- [PHP-FPM](#Resources) - PHP ececution engine
+- [MariaDB](#Resources) - Relational database
+- [WordPress](#Resources) - CMS application layer 
+- [Docker Volumes](#Resources) - Persistent storage
+- [Docker Bridge Network](#Resources) - Isolated internal communication
 
 The infrastracture is orchestrated usin **Docker Compose** and follows best practices in container isolation, service networking, TLS configuration, and data persistence.
 
@@ -27,6 +38,8 @@ This project demonstrates how modern web services are deployed in isolated envir
 
 ##  Project Architecture
 
+![Inception Mind Map](assets/InceptionMindMap.png)
+
 **Browset** => **NGINX** => **PHP-FPM (WordPress)** => **MariaDB**
 
 Each service runs in its own container and communicate throught a private Docker network
@@ -34,7 +47,9 @@ using a specific port.
 
 ---
 
-##  Why Docker?
+##  Technical Design Choices
+
+###  Why Docker?
 
 Docker allows applications and services to run in isolated containers that include all required
 dependencies. This guarantees:
@@ -45,8 +60,6 @@ dependencies. This guarantees:
 - Simplified deployment
 
 ---
-
-##  Technical Design Choices
 
 ###     Virtual Machines vs Docker
 
@@ -122,88 +135,16 @@ from the host system.
 
 ---
 
-###  3.  Configure environment variable
+### 3.  Start project 
 
-#### 1. Create .env file inside /srcs directory and fill in:
+    make
 
-    DOMAIN_NAME=*example.com*
-    NGINX_NAME=*nginx*
-    MYSQL_DATABASE=*wordpress*
-    MYSQL_USER=*WordPress user*
-    WORDPRESS_DB_HOST=*mariadb*
-    WORDPRESS_DB_NAME=*wordpress*
-    WORDPRESS_DB_USER=*WordPress user*
-    WORDPRESS_DB_ADMIN=*Achilles*
-    WORDPRESS_DB_TITLE=*Inception*
-    WORDPRESS_DB_PORT=*4242*
+### 4. For more detail instruction, see:
 
-#### 2. Create two files inside /secrets directory for passwords:
-
-    mkdir secrets && touch  secrets/db_password.txt secrets/db_root_password.txt
-
----
-
-###  4.  Add domain name to /etc/hosts.
-
-    127.0.0.1 example.com
-
----
-
-###  5.  Allow HTTPS traffic on port 443 through firewall.
-
-    sudo ufw allow 443/tcp
-
----
-
-###  6.  Build and start the project.
-
-    make 
-
-####  if the project was built:
-
-    make up 
-
----
-
-###  7.  Access the Website
-
-#### In the brawser address bar that opens, enter:
-
-    https://example.com
-
-#### A self-signed TSL certificate is used, so the browser will show a security warning.
-
----
-
-###  8.  Access WordPress Admin
-
-    https://example.com/wp-admin
-
----
-
-###  9.  Stop the Project 
-
-    make down 
-
----
-
-##   Checking Services 
-
-###  List running containers:
-    
-    make status
-
-###  View logs:
-    
-    make logs 
-
-###  Display the details about a service in an easily readable format:
-
-    make inspect ID=ServiceName
-
-###  Execute a command in a running container:
-
-    make exec ID=ServiceName 
+| Document setup             | Description                      | 
+|----------------------------|----------------------------------|
+| [USER_DOC.md](USER_DOC.md) | End-user and administrator guide |
+| [DEV_DOC.md](DEV_DOC.md)   | Developer setup and architecture |
 
 ---
 

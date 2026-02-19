@@ -10,6 +10,7 @@ RUN apt-get update &&                                       \
     php8.2-curl                                             \
     php8.2-mbstring                                         \
     php8.2-gd                                               \
+    inetutils-ping                                          \
     curl                                                    \
     sudo                                                    \
     mariadb-client &&                                       \
