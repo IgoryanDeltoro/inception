@@ -59,8 +59,6 @@ dependencies. This guarantees:
 - Reeproducibility
 - Simplified deployment
 
----
-
 ###     Virtual Machines vs Docker
 
 | Virtual Machines        | Docker                  |
@@ -73,8 +71,6 @@ dependencies. This guarantees:
 Docker is preferred becouse it's lightweight and faster than full OS such as Linux, in addition
 better suited for microservice-based architectures.
 
----
-
 ###     Secrets vs Environment Variable
 
 | Secrets                     | Environment Variables       |
@@ -86,8 +82,6 @@ better suited for microservice-based architectures.
 In this project, environment variables are used for simplicity, but secrets are recommendet for production
 environments.
 
----
-
 ###     Docker Network vs Host Network
 
 | Dcker Network               | Host Network                |
@@ -98,8 +92,6 @@ environments.
 | Controlled communication    | Direct host access          |
 
 A didicated Docker bridge network is used to ensure service isolation and internal DNS resolution.
-
----
 
 ###     Docker Volumes vs Bind Mounts
 
@@ -127,13 +119,9 @@ from the host system.
 - [General system requirements](https://docs.docker.com/desktop/setup/install/linux/)
 - [Install Docker Engine on Debian](https://docs.docker.com/engine/install/debian/)
 
----
-
 ###  2.  Clone the repositoty
 
     git clone https://github.com/IgoryanDeltoro/inception.git && cd inception 
-
----
 
 ### 3.  Start project 
 

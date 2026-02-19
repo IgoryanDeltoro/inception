@@ -1,5 +1,15 @@
 # DEVELOPER DOCUMENTATION
 
+## Quick navigation
+
+- [Instruction](#Instruction)
+- [Build and Launch the project](#Build and Launch the project)
+- [Container Management](#Container Management)
+- [Volume Management](#Volume Management)
+- [Trobleshooting](#Trobleshooting)
+
+---
+
 ## Instruction 
 
 ### 1. Prerequisites
@@ -53,7 +63,7 @@ Verify installation:
 
 ---
 
-## Build and Launch the project.
+## Build and Launch the project
 
 ### 1. Start the project:
 
@@ -98,12 +108,14 @@ Restart Containers with memory wipe:
     make re
 
 Access Container Shell:
-ID is the name of the service.
+
+*ID is the name of the service.*
 
     make exec ID=nginx
 
 Show low-level information on Docker objects:
-ID is the name of the service.
+
+*ID is the name of the service.*
 
     make inspect ID=nginx
 
@@ -127,19 +139,18 @@ or:
 
 ## Trobleshooting
 
-Check container staus:
+*Check container staus:*
 
     make status
 
-Check database connections:
+*Check database connections:*
 
     make dconn
 
-Verify network resolution:
+*Verify network resolution:*
 
     make vnres
 
-##   Checking HTTPS request 
+*Checking HTTPS request*
 
     curl -v -k https://www.example.com
-                            
