@@ -9,8 +9,8 @@
 ## Quick navigation
 
 - [Description](#Description)
-- [Project Architecture](#Project Architecture)
-- [Technical Design Choices](#Technical Design Choices)
+- [Project Architecture]("#Project Architecture")
+- [Technical Design Choices]("#Technical Design Choices")
 - [Instruction](#Instruction)
 - [Documentation](#Documentation)
 - [Resources](#Resources)
