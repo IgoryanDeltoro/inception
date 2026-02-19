@@ -24,9 +24,11 @@
 
 Verify installation:
 
-    - docker --version
-    - docker compose version
-    - make --version 
+    docker --version
+    
+    docker compose version
+    
+    make --version 
 
 ### 2. Clone the repository
 
