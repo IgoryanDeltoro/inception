@@ -108,12 +108,14 @@ Restart Containers with memory wipe:
     make re
 
 Access Container Shell:
- - ID is the name of the service
+
+*ID is the name of the service.*
 
     make exec ID=nginx
 
 Show low-level information on Docker objects:
- - ID is the name of the service
+
+*ID is the name of the service.*
 
     make inspect ID=nginx
 
