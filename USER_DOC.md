@@ -9,13 +9,13 @@
 - [Accessing the Administration Panel](#Accessing-the-Administration-Panel)
 - [Locating and Managing Credentials](#Locating-and-Managing-Credentials)
 - [Checking that Services are Running](#Checking-that-Services-are-Running)
-- [Data Persistence](Data-Persistence)
+- [Data Persistence](#Data-Persistence)
 
 ---
 
 ## Instruction 
 
-### 1. Introduction
+### Introduction
 
 This projcet provides a complete WordPress website infrastructure running
 inside Docker containers.
@@ -30,7 +30,7 @@ All services are automatically started and connected together.
 
 ---
     
-### 2. Services Provided by the Stack
+### Services Provided by the Stack
 
 The stack delivers:
 
@@ -44,7 +44,7 @@ restarts.
 
 ---
 
-### 3. Starting the Project
+### Starting the Project
 
 From the project root directory:
 
@@ -63,7 +63,7 @@ This will:
 
 ---
 
-### 4. Stopping the Project 
+### Stopping the Project 
 
 To stop containers:
 
@@ -73,11 +73,13 @@ Or:
 
     docker compose down
     
-To stop and remove all stored data
+To stop and remove all stored data:
 
     make fclean
 
-### 5. Accessing the Websit
+---
+
+### Accessing the Websit
 
 Make sure your /etc/hosts file contains:
     
@@ -92,7 +94,7 @@ warning. You may safely proceed.
 
 ---
 
-## 6. Accessing the Administration Panel
+## Accessing the Administration Panel
 
 To manage the website:
     
@@ -102,12 +104,12 @@ Log in using the administrator credentials defined during installation.
 
 ---
 
-## 7. Locating and Managing Credentials
+## Locating and Managing Credentials
 
 All credential are stored in srcs/.env and secrets/
 
 - secrets/db_password.txt - wp password    
-- secrets/db_password.txt - root password    
+- secrets/db_root_password.txt - root password    
 - MYSQL_USER=wp_user
 
 To modify credentials:
@@ -120,7 +122,7 @@ It's very important! The .env file must never be committed to Git.
 
 ---
 
-##  8. Checking that Services are Running
+## Checking that Services are Running
 
 ### Check Running Containers
 
@@ -146,7 +148,7 @@ or check single container:
     
 ---
 
-## 9. Data Persistence 
+## Data Persistence 
 
 The project uses Docker volumes to store:
 
@@ -161,7 +163,7 @@ This means:
     
 ---
 
-## 10. Troubleshooting
+## Troubleshooting
 
 If the website does not load:
 
