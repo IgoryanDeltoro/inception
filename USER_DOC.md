@@ -21,9 +21,13 @@ This projcet provides a complete WordPress website infrastructure running
 inside Docker containers.
 
     - NGINX - Web server handling HTTPS connections
+    
     - WordPress - Wesite content management system
+    
     - PHP-FPM - Executes WordPress PHP code
+    
     - MariaDB Database storing website data
+    
     - Docker Volumes - Persistent storage for database and website files
     
 All services are automatically started and connected together.
@@ -35,8 +39,11 @@ All services are automatically started and connected together.
 The stack delivers:
 
     - A secure HTTPS website
+    
     - A wordPress administration panel
+    
     - A persistent database
+    
     - Automatic container orchestration via Docker Compose
     
 The system is designed so that services restart cleanly and data persists across 
@@ -57,8 +64,11 @@ Or manually:
 This will:
 
     - build images
+    
     - create required volumes
+    
     - create containers
+    
     - start all services
 
 ---
@@ -107,13 +117,17 @@ Log in using the administrator credentials defined during installation.
 All credential are stored in srcs/.env and secrets/
 
     - secrets/db_password.txt - wp password
+    
     - secrets/db_password.txt - root password
+    
     - MYSQL_USER=wp_user
 
 To modify credentials:
 
     1. Stop the project
+    
     2. Edit the .env file
+    
     3. Restart the project
 
 It's very important! The .env file must never be committed to Git.
@@ -129,7 +143,9 @@ It's very important! The .env file must never be committed to Git.
 You should see:
 
     - nginx
+    
     - wordpress
+    
     - mariadb
     
 ### Check Logs
@@ -151,12 +167,15 @@ or check single container:
 The project uses Docker volumes to store:
 
     - Database data
+    
     - WordPress content
     
 This means:
 
     - Data survives container restarts
+    
     - Data survives **docker compose down**
+    
     - Data is removed only when using **make fclean** or **docker compose down -v**
     
 ---
