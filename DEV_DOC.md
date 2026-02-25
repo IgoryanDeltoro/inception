@@ -38,7 +38,7 @@ Verify installation:
 
 #### Create .env file inside /srcs directory and fill in:
 
-    DOMAIN_NAME=example.com
+    DOMAIN_NAME=login.42.fr
     NGINX_NAME=nginx
 
     MYSQL_DATABASE=wordpress
@@ -57,11 +57,7 @@ Verify installation:
 
 ### 4. Add domain name to /etc/hosts.
 
-    127.0.0.1 example.com
-
-### 5. Allow HTTPS traffic on port 443 through firewall.
-
-    sudo ufw allow 443/tcp
+    127.0.0.1 login.42.fr
 
 ---
 
@@ -85,7 +81,7 @@ A self-signed TSL certificate is used, so the browser will show a security warni
 
 ###  3.  Access WordPress Admin
 
-    https://example.com/wp-admin
+    https://login.42.fr/wp-admin
 
 ###  4. Stop the Project 
 
@@ -155,4 +151,4 @@ Verify network resolution:
 
 Checking HTTPS request
 
-    curl -v -k https://www.example.com
+    curl -v -k https://login.42.fr

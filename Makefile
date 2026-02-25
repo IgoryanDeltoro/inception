@@ -1,15 +1,15 @@
-#VARIABLES                                     
+# VARIABLES                                     
 # Docker compose file shortcut
 COMPOSE = docker compose -f ./srcs/docker-compose.yml
 
 # Data directory on host (required by Inception subject)
 DATA_PATH = /home/$(USER)/data
 
-#MAIN TARGET                                   
+# MAIN TARGET                                   
 # Default target
 all: up
 
-#SETUP                                         
+# SETUP                                         
 # Create required host directories for bind mounts
 setup:
 	@echo "Creating data directories..."
@@ -18,7 +18,7 @@ setup:
 	sudo chown -R $(USER):$(USER) $(DATA_PATH)
 
 
-#DOCKER CONTROL                                
+# DOCKER CONTROL                                
 # Build images and start containers
 up: setup
 	$(COMPOSE) up -d
@@ -47,7 +47,7 @@ rebuild: clean setup
 re: fclean all
 
 
-#DEBUGGING                                     
+# DEBUGGING                                     
 # List volumes
 vl:
 	docker volume ls
@@ -77,18 +77,18 @@ logs:
 	$(COMPOSE) logs
 
 
-#CLEANING                                      
+# CLEANING                                      
 # Remove containers and unused Docker resources
 clean: down
+	$(COMPOSE) down -v
 	docker system prune -f
 
 # Remove everything including volumes and host data
 fclean: clean
-	$(COMPOSE) down -v
+	docker system prune -a
 	sudo rm -rf $(DATA_PATH)/wordpress
 	sudo rm -rf $(DATA_PATH)/mariadb
 
 
-#PHONY                                         
 .PHONY: all setup setup_ping up down stop start restart rebuild re \
         vl volumes vnres dconn exec status logs clean fclean

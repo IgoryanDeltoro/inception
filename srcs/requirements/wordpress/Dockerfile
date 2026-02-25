@@ -12,7 +12,6 @@ RUN apt-get update &&                                       \
     php8.2-gd                                               \
     inetutils-ping                                          \
     curl                                                    \
-    sudo                                                    \
     mariadb-client &&                                       \
     rm -rf /var/lib/apt/lists/* 
 

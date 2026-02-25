@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-Reset='\033[0m'       # Text Reset
-Red='\033[0;31m'          # Red
-Green='\033[0;32m'        # Green
-Yellow='\033[0;33m'       # Yellow
-Cyan='\033[0;36m'         # Cyan
+Reset='\033[0m'       
+Red='\033[0;31m'          
+Green='\033[0;32m'       
+Yellow='\033[0;33m'       
+Cyan='\033[0;36m'       
 
 # Creat directories for MySQL service
 mkdir -p /var/log/mysql && chmod -R 777 /var/log/mysql

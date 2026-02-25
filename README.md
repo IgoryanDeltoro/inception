@@ -20,11 +20,11 @@
 ##  Description
 
 **Inception** is a system administration and DevOps project focused on building a secure,
-production-style web infrasructure using Docker. The goal of this project is to conteinerize
+production-style web infrastructure using Docker. The goal of this project is to conteinerize
 a complete WordPress stack composed of:
 
-- [NGINX](#Resources) - Revere proxy with TLS termination
-- [PHP-FPM](#Resources) - PHP ececution engine
+- [NGINX](#Resources) - Reverse proxy with TLS termination
+- [PHP-FPM](#Resources) - PHP execution engine
 - [MariaDB](#Resources) - Relational database
 - [WordPress](#Resources) - CMS application layer 
 - [Docker Volumes](#Resources) - Persistent storage
@@ -52,11 +52,11 @@ using a specific port.
 ###  Why Docker?
 
 Docker allows applications and services to run in isolated containers that include all required
-dependencies. This guarantees:
+dependencies. This guarantiees:
 
 - Isolation
 - Portability
-- Reeproducibility
+- Reproducibility
 - Simplified deployment
 
 ###     Virtual Machines vs Docker
