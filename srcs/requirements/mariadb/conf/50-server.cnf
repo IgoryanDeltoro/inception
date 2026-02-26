@@ -5,3 +5,8 @@ datadir = /var/lib/mysql
 socket = /var/run/mysqld/mysqld.sock
 log-error = /var/log/mysql/error.log
 pid-file = /var/run/mysqld/mysqld.pid
+
+secure-file-priv=/var/lib/mysql-file
+local-infile=0
+sql_mode=STRIC_TTRANS_TABLES,ERROR_FORDIVISION_BYZERO,NO_ENGINE_SUBSTITUTION
+skip-symbolic-links

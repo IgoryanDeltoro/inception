@@ -14,6 +14,7 @@
 - [Instruction](#Instruction)
 - [Documentation](#Documentation)
 - [Resources](#Resources)
+- [AI Usage](#AI-Usage)
 
 ---
 
@@ -145,3 +146,16 @@ from the host system.
 - [PHP-FPM Documentation](https://www.php.net/manual/en/install.fpm.php)
 - [MariaDB Documentation](https://mariadb.org/documentation/)
 - [WordPress Documentation](https://mariadb.org/documentation/)
+
+## AI Usage
+
+AI tools were used during this project for:
+
+- Clarifying Docker networking concepts
+- Understanding TLS certificate configuration 
+- Explaining FastCGI and PHP-FPM interactions
+- Improving documentation clarity
+- Reviewing configuration correctness
+
+All architectural decisions, debugging, implementation, and validation were performed manually.
+AI assistance was used strictly as a learning and explanatory support tool.
