@@ -56,4 +56,4 @@ fi
 echo -e ${Green}Starting MariaDB...${Reset}
 
 # Start MariaDB (PID 1)  (with networking)
-exec mysqld_safe --user=mysql
+exec mysqld --user=mysql
